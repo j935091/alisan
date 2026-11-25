@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>阿里山二日遊順起來</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&display=swap">
+<style>
+/* VOICE: 輕鬆的朋友出遊手帳，溫暖、好讀、一眼找到要去哪
+   IDEA: 日系旅行手帳的一頁，和紙底、墨灰粗框、手寫感標籤
+   PICTURE: 開頭一幅山景：雲海、層疊山稜、杉林與奮起湖小火車
+   COLOUR and TYPE: 和紙白 + 墨灰，杉林綠為輔，晨光柿橘點綴；Huninn 全頁
+   LAYOUT: 手機優先單欄，Day 分頁籤，卡片 3px 粗框，寬螢幕兩欄卡片 */
+:root{color-scheme:light dark;
+--bg:light-dark(#f6f1e6,#1d1f1c);--paper:light-dark(#fffdf7,#262925);
+--ink:light-dark(#2f2e2b,#ece6d8);--soft:light-dark(#6b675e,#b3ad9f);
+--line:light-dark(#3a3935,#d9d2c2);--cedar:light-dark(#3f6b4f,#8fbf9c);
+--cedarbg:light-dark(#e3ece2,#2c3a30);--sun:light-dark(#d9682b,#f0965f);
+--sunbg:light-dark(#fbe6d6,#3d2e24)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Huninn","PingFang TC","Noto Sans TC",sans-serif;overflow-x:clip}
+a{color:var(--cedar);text-underline-offset:3px}
+.wrap{max-width:880px;margin:0 auto;padding:0 max(4vw,14px) 48px}
+header{padding:22px 0 8px}
+.date{display:inline-block;border:3px solid var(--line);border-radius:999px;padding:2px 14px;background:var(--paper);font-size:15px}
+h1{font-size:clamp(34px,8vw,50px);line-height:1.08;margin:12px 0 6px;text-wrap:balance;font-weight:400}
+.sub{color:var(--soft);margin:0 0 14px}
+.hero{border:3px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper);aspect-ratio:16/8;min-height:190px}
+.hero svg{display:block;width:100%;height:100%}
+.tabs{display:flex;gap:10px;margin:22px 0 14px;flex-wrap:wrap}
+.tab{font:inherit;font-size:17px;color:var(--ink);background:var(--paper);border:3px solid var(--line);border-radius:12px;padding:8px 18px;min-height:44px;cursor:pointer}
+.tab[aria-selected=true]{background:var(--ink);color:var(--paper)}
+.tab:focus-visible,.chk input:focus-visible+span{outline:3px solid var(--sun);outline-offset:2px}
+.tl{list-style:none;margin:0;padding:0}
+.tl>li{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:12px;padding:14px 0;border-bottom:2px dashed color-mix(in srgb,var(--line) 35%,transparent)}
+.tl>li:last-child{border-bottom:0}
+.t{font-size:22px;line-height:1.2;white-space:nowrap;color:var(--sun)}
+.tl h3{margin:0 0 2px;font-size:19px;font-weight:400}
+.tl p{margin:0;color:var(--soft)}
+.card{background:var(--paper);border:3px solid var(--line);border-radius:16px;padding:18px clamp(14px,3vw,22px);margin:16px 0}
+.card h2{font-size:22px;margin:0 0 4px;font-weight:400;display:flex;align-items:center;gap:8px}
+.card h2 .tag{font-size:13px;border:2px solid var(--line);border-radius:999px;padding:0 10px;color:var(--soft)}
+.card>p.note{margin:0 0 12px;color:var(--soft);font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px}
+.item{border:2px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.item.green{background:var(--cedarbg)}.item.sun{background:var(--sunbg)}
+.item b{font-weight:400;font-size:18px}
+.item small{color:var(--soft);font-size:14px}
+.item a{margin-top:auto;font-size:15px;padding:6px 0;display:inline-block}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
+.pill{border:2px solid var(--line);border-radius:999px;padding:4px 12px;font-size:15px;background:var(--bg)}
+.btn{display:inline-flex;align-items:center;min-height:44px;border:3px solid var(--line);border-radius:12px;padding:6px 16px;background:var(--ink);color:var(--paper);text-decoration:none;font-size:16px}
+.stay{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center}
+.stay .ico{width:56px;height:56px;border:3px solid var(--line);border-radius:14px;background:var(--cedarbg);display:grid;place-items:center}
+.empty{text-align:center;padding:36px 16px;color:var(--soft)}
+.empty .big{font-size:22px;color:var(--ink);margin-bottom:6px}
+.chk{display:flex;gap:10px;align-items:center;min-height:44px;cursor:pointer}
+.chk input{position:absolute;opacity:0}
+.chk span.box{width:24px;height:24px;flex:none;border:3px solid var(--line);border-radius:7px;display:grid;place-items:center;background:var(--bg)}
+.chk input:checked+span.box{background:var(--cedar);border-color:var(--cedar)}
+.chk input:checked+span.box::after{content:"";width:10px;height:6px;border:solid var(--paper);border-width:0 0 3px 3px;transform:translateY(-2px) rotate(-45deg)}
+.chk input:checked~.lbl{text-decoration:line-through;color:var(--soft)}
+footer{color:var(--soft);font-size:14px;text-align:center;margin-top:26px}
+.cloud{animation:drift 22s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translateX(40px)}}
+@media(prefers-reduced-motion:reduce){.cloud{animation:none}}
+@media(max-width:600px){.tl>li{grid-template-columns:3.9em minmax(0,1fr);gap:8px}.t{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <span class="date">2026/11/28（六）– 11/29（日）</span>
+  <h1>阿里山二日遊順起來</h1>
+</header>
+
+<div class="hero" aria-hidden="true">
+<svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f9d9bd"/><stop offset=".6" stop-color="#fdf2e4"/></linearGradient>
+    <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fb8a6"/><stop offset="1" stop-color="#c9d7cb"/></linearGradient>
+    <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5f8a6c"/><stop offset="1" stop-color="#7fa38a"/></linearGradient>
+    <g id="cedar"><rect x="-3" y="0" width="6" height="16" fill="#3b2f25"/><path d="M0-62 L15-22 L8-22 L20 4 L-20 4 L-8-22 L-15-22Z" fill="#2f5a3e"/><path d="M0-62 L15-22 L8-22 L20 4 L4 4Z" fill="#244a32"/></g>
+  </defs>
+  <rect width="800" height="400" fill="url(#sky)"/>
+  <circle cx="610" cy="118" r="44" fill="#f2a061"/>
+  <circle cx="610" cy="118" r="44" fill="none" stroke="#fff3e3" stroke-width="3" opacity=".6"/>
+  <path d="M0 230 L120 150 L210 200 L330 120 L450 195 L560 140 L690 205 L800 160 V400 H0Z" fill="url(#m1)"/>
+  <g class="cloud" fill="#fffaf2" opacity=".92"><ellipse cx="200" cy="232" rx="150" ry="22"/><ellipse cx="300" cy="222" rx="90" ry="18"/><ellipse cx="560" cy="240" rx="170" ry="20"/></g>
+  <path d="M0 290 L90 240 L200 280 L300 225 L420 285 L540 250 L660 292 L800 250 V400 H0Z" fill="url(#m2)"/>
+  <g>
+    <use href="#cedar" transform="translate(40 330) scale(1.2)"/><use href="#cedar" transform="translate(85 345) scale(.95)"/>
+    <use href="#cedar" transform="translate(130 335) scale(1.1)"/><use href="#cedar" transform="translate(690 330) scale(1.15)"/>
+    <use href="#cedar" transform="translate(735 345) scale(.9)"/><use href="#cedar" transform="translate(775 333) scale(1.05)"/>
+  </g>
+  <path d="M0 362 H800" stroke="#3a3935" stroke-width="4"/>
+  <path d="M0 372 H800" stroke="#3a3935" stroke-width="2" stroke-dasharray="10 12"/>
+  <g transform="translate(250 300)">
+    <rect x="0" y="12" width="150" height="46" rx="8" fill="#c8402a" stroke="#3a3935" stroke-width="3"/>
+    <rect x="0" y="40" width="150" height="10" fill="#f3e6c8"/>
+    <rect x="14" y="20" width="26" height="16" rx="3" fill="#fdf2e4" stroke="#3a3935" stroke-width="2"/>
+    <rect x="50" y="20" width="26" height="16" rx="3" fill="#fdf2e4" stroke="#3a3935" stroke-width="2"/>
+    <rect x="86" y="20" width="26" height="16" rx="3" fill="#fdf2e4" stroke="#3a3935" stroke-width="2"/>
+    <rect x="160" y="12" width="150" height="46" rx="8" fill="#c8402a" stroke="#3a3935" stroke-width="3"/>
+    <rect x="160" y="40" width="150" height="10" fill="#f3e6c8"/>
+    <rect x="176" y="20" width="26" height="16" rx="3" fill="#fdf2e4" stroke="#3a3935" stroke-width="2"/>
+    <rect x="212" y="20" width="26" height="16" rx="3" fill="#fdf2e4" stroke="#3a3935" stroke-width="2"/>
+    <rect x="248" y="20" width="26" height="16" rx="3" fill="#fdf2e4" stroke="#3a3935" stroke-width="2"/>
+    <g fill="#3a3935"><circle cx="28" cy="60" r="7"/><circle cx="122" cy="60" r="7"/><circle cx="188" cy="60" r="7"/><circle cx="282" cy="60" r="7"/></g>
+  </g>
+</svg>
+</div>
+
+<div class="tabs" role="tablist">
+  <button class="tab" role="tab" id="t1" aria-controls="d1" aria-selected="true">Day 1｜11/28 六</button>
+  <button class="tab" role="tab" id="t2" aria-controls="d2" aria-selected="false">Day 2｜11/29 日</button>
+</div>
+
+<section id="d1" role="tabpanel" aria-labelledby="t1">
+  <div class="card">
+    <ol class="tl">
+      <li><span class="t">早上</span><div><h3>投完票出發</h3><p>各自投票後開車上山</p></div></li>
+      <li><span class="t">12:00</span><div><h3>奮起湖集合・午餐</h3><p>停好車在老街會合，先吃飯</p></div></li>
+      <li><span class="t">下午</span><div><h3>走步道＋逛店家</h3><p>奮起湖步道看當天狀況挑著走，順路看奮起湖車庫，再到老街店家晃晃</p></div></li>
+      <li><span class="t">傍晚</span><div><h3>入住金皮雕 不安於室工作室民宿</h3><p>check-in 後放行李</p></div></li>
+      <li><span class="t">晚餐</span><div><h3>石棹吃飯</h3><p>開車約 6 分鐘，三家任選</p></div></li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>停車資訊 <span class="tag">奮起湖</span></h2>
+    <p class="note">共有六處可停，先看地圖再決定停哪</p>
+    <div class="pills">
+      <span class="pill">第一停車場</span><span class="pill">第二停車場</span><span class="pill">第三停車場</span>
+      <span class="pill">第四停車場</span><span class="pill">路邊停車場</span><span class="pill">大凍山停車場</span>
+    </div>
+    <a class="btn" href="https://www.ali-nsa.net/content/images/static/map-parking-fenqihu.jpg" target="_blank" rel="noopener">開啟停車場地圖</a>
+  </div>
+
+  <div class="card">
+    <h2>奮起湖景點</h2>
+    <div class="grid">
+      <div class="item"><b>奮起湖車庫</b><a href="https://www.google.com/maps/search/?api=1&query=奮起湖車庫" target="_blank" rel="noopener">在地圖上看 →</a></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>奮起湖店家 <span class="tag">吃喝逛</span></h2>
+    <div class="grid">
+      <div class="item sun"><b>奮起湖豆腐店</b><small>豆腐點心</small><a href="https://www.google.com/maps/search/?api=1&query=奮起湖豆腐店" target="_blank" rel="noopener">在地圖上看 →</a></div>
+      <div class="item sun"><b>杉墨日禾</b><small>咖啡廳</small><a href="https://www.google.com/maps/search/?api=1&query=杉墨日禾+奮起湖" target="_blank" rel="noopener">在地圖上看 →</a></div>
+      <div class="item sun"><b>奮起湖現烤甜甜圈</b><small>現烤甜點</small><a href="https://www.google.com/maps/search/?api=1&query=奮起湖現烤甜甜圈" target="_blank" rel="noopener">在地圖上看 →</a></div>
+      <div class="item sun"><b>一品香奮起湖野生愛玉</b><small>愛玉</small><a href="https://www.google.com/maps/search/?api=1&query=一品香奮起湖野生愛玉" target="_blank" rel="noopener">在地圖上看 →</a></div>
+      <div class="item sun"><b>野生愛玉</b><small>愛玉</small><a href="https://www.google.com/maps/search/?api=1&query=奮起湖+野生愛玉" target="_blank" rel="noopener">在地圖上看 →</a></div>
+      <div class="item sun"><b>奮起湖街仔尾阿嬤草仔粿</b><small>草仔粿</small><a href="https://www.google.com/maps/search/?api=1&query=奮起湖街仔尾阿嬤草仔粿" target="_blank" rel="noopener">在地圖上看 →</a></div>
+      <div class="item sun"><b>箱姑草仔粿</b><small>草仔粿</small><a href="https://www.google.com/maps/search/?api=1&query=箱姑草仔粿+奮起湖" target="_blank" rel="noopener">在地圖上看 →</a></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>奮起湖步道 <span class="tag">看狀況選</span></h2>
+    <p class="note">不一定要全部走完，依當天體力、天氣挑幾段走</p>
+    <div class="grid">
+      <div class="item green"><b>奮起步道</b><a href="https://www.google.com/maps/search/?api=1&query=奮起湖+奮起步道" target="_blank" rel="noopener">在地圖上看 →</a></div>
+      <div class="item green"><b>木馬棧道</b><a href="https://www.google.com/maps/search/?api=1&query=奮起湖+木馬棧道" target="_blank" rel="noopener">在地圖上看 →</a></div>
+      <div class="item green"><b>奮起湖（南側）杉林棧道</b><a href="https://www.google.com/maps/search/?api=1&query=奮起湖+杉林棧道" target="_blank" rel="noopener">在地圖上看 →</a></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>住宿</h2>
+    <div class="stay">
+      <div class="ico"><svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><path d="M4 14 L15 5 L26 14 V26 H4Z"/><path d="M12 26 V18 H18 V26"/></svg></div>
+      <div><b style="font-weight:400;font-size:19px">金皮雕 不安於室工作室民宿</b><br>
+      <a href="https://www.google.com/maps/search/?api=1&query=金皮雕+不安於室工作室" target="_blank" rel="noopener">在地圖上看 →</a></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>晚餐 <span class="tag">石棹・開車 6 分鐘</span></h2>
+    <div class="grid">
+      <div class="item"><b>平安快炒</b><small>熱炒</small><a href="https://maps.app.goo.gl/ExoK2ysx165ZihF97" target="_blank" rel="noopener">Google 地圖 →</a></div>
+      <div class="item"><b>花現茶韻</b><small>茶園餐廳</small><a href="https://maps.app.goo.gl/gTZsrBK5jchjZPoW6" target="_blank" rel="noopener">Google 地圖 →</a></div>
+      <div class="item"><b>達官現炒</b><small>熱炒</small><a href="https://maps.app.goo.gl/XVC4TjmaG4sXsEUd9" target="_blank" rel="noopener">Google 地圖 →</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="d2" role="tabpanel" aria-labelledby="t2" hidden>
+  <div class="card empty">
+    <div class="big">第二天行程整理中</div>
+    <div>確定後會補上這一頁</div>
+  </div>
+</section>
+
+<div class="card">
+  <h2>出發前清單</h2>
+  <p class="note">勾選會記在你自己的瀏覽器裡</p>
+  <div id="list"></div>
+</div>
+
+<footer>阿里山二日遊・2026 冬</footer>
+</div>
+
+<script>
+{
+  const tabs=[...document.querySelectorAll('.tab')];
+  const show=id=>{tabs.forEach(t=>{const on=t.id===id;t.setAttribute('aria-selected',on);document.getElementById(t.getAttribute('aria-controls')).hidden=!on});
+    try{localStorage.setItem('ali-tab',id)}catch(e){}};
+  tabs.forEach(t=>t.addEventListener('click',()=>show(t.id)));
+  document.querySelector('[role=tablist]').addEventListener('keydown',e=>{
+    if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;
+    const i=tabs.findIndex(t=>t.getAttribute('aria-selected')==='true');
+    const n=tabs[(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length];n.focus();show(n.id)});
+  try{const s=localStorage.getItem('ali-tab');if(s&&document.getElementById(s))show(s)}catch(e){}
+
+  const items=['投票（帶身分證、印章、投票通知單）','山上保暖外套','好走的鞋（步道用）','確認民宿入住時間','決定晚餐去哪家'];
+  let done={};try{done=JSON.parse(localStorage.getItem('ali-chk')||'{}')}catch(e){}
+  const list=document.getElementById('list');
+  list.innerHTML=items.map((t,i)=>`<label class="chk"><input type="checkbox" id="c${i}" ${done[i]?'checked':''}><span class="box"></span><span class="lbl">${t}</span></label>`).join('');
+  list.addEventListener('change',e=>{const i=e.target.id.slice(1);done[i]=e.target.checked;try{localStorage.setItem('ali-chk',JSON.stringify(done))}catch(e){}});
+}
+</script>
+</body>
+</html>
