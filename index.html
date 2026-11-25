@@ -25,9 +25,9 @@ a{color:var(--cedar);text-underline-offset:3px}
 .wrap{max-width:880px;margin:0 auto;padding:0 max(4vw,14px) 48px}
 header{padding:22px 0 8px}
 .date{display:inline-block;border:3px solid var(--line);border-radius:999px;padding:2px 14px;background:var(--paper);font-size:15px}
-h1{font-size:clamp(34px,8vw,50px);line-height:1.08;margin:12px 0 6px;text-wrap:balance;font-weight:400}
+h1{font-size:clamp(34px,8vw,50px);line-height:1.08;margin:6px 0 16px;text-wrap:balance;font-weight:400}
 .sub{color:var(--soft);margin:0 0 14px}
-.hero{border:3px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper);aspect-ratio:16/8;min-height:190px}
+.hero{border:3px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper);height:clamp(190px,46vw,420px)}
 .hero svg{display:block;width:100%;height:100%}
 .tabs{display:flex;gap:10px;margin:22px 0 14px;flex-wrap:wrap}
 .tab{font:inherit;font-size:17px;color:var(--ink);background:var(--paper);border:3px solid var(--line);border-radius:12px;padding:8px 18px;min-height:44px;cursor:pointer}
@@ -72,7 +72,6 @@ footer{color:var(--soft);font-size:14px;text-align:center;margin-top:26px}
 <body>
 <div class="wrap">
 <header>
-  <span class="date">2026/11/28（六）– 11/29（日）</span>
   <h1>阿里山二日遊順起來</h1>
 </header>
 
@@ -186,20 +185,61 @@ footer{color:var(--soft);font-size:14px;text-align:center;margin-top:26px}
       <div class="item"><b>達官現炒</b><small>熱炒</small><a href="https://maps.app.goo.gl/XVC4TjmaG4sXsEUd9" target="_blank" rel="noopener">Google 地圖 →</a></div>
     </div>
   </div>
-</section>
-
-<section id="d2" role="tabpanel" aria-labelledby="t2" hidden>
-  <div class="card empty">
-    <div class="big">第二天行程整理中</div>
-    <div>確定後會補上這一頁</div>
+  <div class="card">
+    <h2>出發前清單</h2>
+    <p class="note">勾選會記在你自己的瀏覽器裡</p>
+    <div id="list"></div>
   </div>
 </section>
 
-<div class="card">
-  <h2>出發前清單</h2>
-  <p class="note">勾選會記在你自己的瀏覽器裡</p>
-  <div id="list"></div>
-</div>
+<section id="d2" role="tabpanel" aria-labelledby="t2" hidden>
+  <div class="card">
+    <ol class="tl">
+      <li><span class="t">早上</span><div><h3>民宿早餐・Check out</h3><p>吃完早餐退房出發</p></div></li>
+      <li><span class="t">上午</span><div><h3>前往阿里山森林遊樂區</h3><p>從阿里山火車站搭小火車到神木車站</p></div></li>
+      <li><span class="t">步道</span><div><h3>巨木群棧道、阿里山步道</h3><p>從神木車站一路走回森林遊樂區</p></div></li>
+      <li><span class="t">中午</span><div><h3>午餐</h3><p>山賓餐廳、山芝鄉風味館</p></div></li>
+      <li><span class="t">午後</span><div><h3>特富野古道前段折返</h3><p>看時間動態調整，時間夠再去</p></div></li>
+      <li><span class="t">回程</span><div><h3>下山回家</h3><p>平安到家</p></div></li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>小火車 <span class="tag">阿里山站 → 神木站</span></h2>
+    <div class="grid">
+      <div class="item"><b>阿里山火車站</b><a href="https://www.google.com/maps/search/?api=1&query=阿里山火車站" target="_blank" rel="noopener">在地圖上看 →</a></div>
+      <div class="item"><b>神木車站</b><a href="https://www.google.com/maps/search/?api=1&query=阿里山+神木車站" target="_blank" rel="noopener">在地圖上看 →</a></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>森林遊樂區步道 <span class="tag">走回遊樂區</span></h2>
+    <div class="grid">
+      <div class="item green"><b>巨木群棧道</b><a href="https://www.google.com/maps/search/?api=1&query=阿里山+巨木群棧道" target="_blank" rel="noopener">在地圖上看 →</a></div>
+      <div class="item green"><b>阿里山步道</b><a href="https://www.google.com/maps/search/?api=1&query=阿里山森林遊樂區+阿里山步道" target="_blank" rel="noopener">在地圖上看 →</a></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>午餐</h2>
+    <div class="grid">
+      <div class="item sun"><b>山賓餐廳</b><a href="https://www.google.com/maps/search/?api=1&query=阿里山+山賓餐廳" target="_blank" rel="noopener">在地圖上看 →</a></div>
+      <div class="item sun"><b>山芝鄉風味館</b><a href="https://www.google.com/maps/search/?api=1&query=阿里山+山芝鄉風味館" target="_blank" rel="noopener">在地圖上看 →</a></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>午後：特富野古道 <span class="tag">看時間決定</span></h2>
+    <p class="note">前段折返，不用走完全程</p>
+    <div class="pills">
+      <span class="pill">自忠登山口 ↔ 約 3.7K</span>
+      <span class="pill">來回約 1.5～3 小時</span>
+    </div>
+    <p style="margin:0 0 12px">路況平緩，沿途多柳杉與舊鐵道景觀，適合親子與輕鬆健行。</p>
+    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=特富野古道+自忠登山口" target="_blank" rel="noopener">自忠登山口地圖</a>
+  </div>
+</section>
+
 
 <footer>阿里山二日遊・2026 冬</footer>
 </div>
@@ -216,11 +256,11 @@ footer{color:var(--soft);font-size:14px;text-align:center;margin-top:26px}
     const n=tabs[(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length];n.focus();show(n.id)});
   try{const s=localStorage.getItem('ali-tab');if(s&&document.getElementById(s))show(s)}catch(e){}
 
-  const items=['投票（帶身分證、印章、投票通知單）','山上保暖外套','好走的鞋（步道用）','確認民宿入住時間','決定晚餐去哪家'];
-  let done={};try{done=JSON.parse(localStorage.getItem('ali-chk')||'{}')}catch(e){}
+  const items=['投票（帶身分證、印章、投票通知單）','保暖衣物','好走的鞋子','水壺','愉快的心情'];
+  let done={};try{done=JSON.parse(localStorage.getItem('ali-chk2')||'{}')}catch(e){}
   const list=document.getElementById('list');
   list.innerHTML=items.map((t,i)=>`<label class="chk"><input type="checkbox" id="c${i}" ${done[i]?'checked':''}><span class="box"></span><span class="lbl">${t}</span></label>`).join('');
-  list.addEventListener('change',e=>{const i=e.target.id.slice(1);done[i]=e.target.checked;try{localStorage.setItem('ali-chk',JSON.stringify(done))}catch(e){}});
+  list.addEventListener('change',e=>{const i=e.target.id.slice(1);done[i]=e.target.checked;try{localStorage.setItem('ali-chk2',JSON.stringify(done))}catch(e){}});
 }
 </script>
 </body>
